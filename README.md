@@ -45,12 +45,15 @@ keymaps.normal["<C-t>"] = {
   function() require 'telescope.builtin'.colorscheme() end,
   'Find Colorscheme'
 }
+-- uses [@telescope](https://github.com/nvim-telescope/telescope.nvim)
 
 -- you can also pass additional options to the keymaps
 keymaps.normal["gg"] = { '<cmd>call smoothie#do("gg") <CR>', 'Scroll to top of file', { overwrite = true } }
 keymaps.normal["G"] = { '<cmd>call smoothie#do("G") <CR>', 'Scroll to bottom of file', { overwrite = true } }
+-- uses [@vim-smoothie](https://github.com/psliwka/vim-smoothie)
 
 -- keymaps can also be grouped by passing a name to the `group` property:
 keymaps.normal[',hp'] = { require 'gitsigns'.preview_hunk, '[Git] Preview Hunk', group = 'Git' }
 keymaps.normal[',hs'] = { require 'gitsigns'.stage_hunk, '[Git] stage current hunk', group = 'Git' }
+-- uses [@gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)
 ```
