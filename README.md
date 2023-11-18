@@ -19,7 +19,7 @@ return {
 
 first run:
 
-```
+```lua
 require 'keymaps'.setup {}
 ```
 
@@ -27,14 +27,14 @@ at the beggining of your config.
 
 or using a protected call:
 
-```
+```lua
 local ok, keymaps = pcall(require, 'keymaps')
 if ok then keymaps.setup {} end
 ```
 
 then your can use the 'keymaps' global like this:
 
-```
+```lua
 -- keymaps <mode> [<key>]        { <keymap>         <description>  }
 keymaps.normal['<space><TAB>'] = { ":$tabedit<CR>", 'Open New Tab' }
 
