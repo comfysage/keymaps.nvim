@@ -57,3 +57,15 @@ keymaps.normal[',hp'] = { require 'gitsigns'.preview_hunk, '[Git] Preview Hunk',
 keymaps.normal[',hs'] = { require 'gitsigns'.stage_hunk, '[Git] stage current hunk', group = 'Git' }
 -- uses [@gitsigns.nvim](https://github.com/lewis6991/gitsigns.nvim)
 ```
+
+### Telescope Integration
+
+Add the following to your nvim config to load the telescope extension
+```lua
+require 'telescope'.load_extension 'keymaps_nvim'
+```
+
+to view your keymaps using telescope run the following
+```lua
+require 'telescope'.extensions.keymaps_nvim.keymaps_nvim()
+```
