@@ -39,6 +39,8 @@ end
 Keymaps.set = function (modename, key, value)
   if not _G.keymaps.prototype[modename] then return end
 
+  key = require 'keymaps.utils'.key_hook(key)
+
   local mode = _G.keymaps.prototype.modes[modename]
   ---@type Keymap
   local map = {

@@ -1,12 +1,17 @@
 ---@class KeymapsConfig
 ---@field default_opts {}
+---@field special_keys { [string]: string }
 
 ---@type KeymapsConfig
 local default_config = {
   default_opts = {
     silent = true,
     noremap = true,
-  }
+  },
+  special_keys = {
+    ['SPC'] = "<space>",
+    ['TAB'] = "<TAB>",
+  },
 }
 
 _G.keymaps_config = _G.keymaps_config or default_config
