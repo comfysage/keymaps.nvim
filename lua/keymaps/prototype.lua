@@ -71,6 +71,11 @@ Keymaps.set = function (modename, key, value)
   else
     return
   end
+  if map.desc == '' then
+    if type(map.rhs) == "string" then
+      map.desc = map.rhs
+    end
+  end
   map.opts.desc = map.desc
   _G.keymaps.prototype[modename][key] = map
   vim.keymap.set(mode, map.lhs, map.rhs, map.opts)
