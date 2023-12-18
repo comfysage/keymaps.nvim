@@ -15,6 +15,28 @@ function M.get_mode(mode)
   return keymaps.prototype[mode]
 end
 
+---@return string[]
+function M.get_groups()
+  local groups = {}
+
+  local modes = M.get_modes()
+  for _, mode in pairs(modes) do
+    local mappings = M.get_mode(mode)
+    for _, v in pairs(mappings) do
+      if v.group and #v.group > 0 then
+        groups[v.group] = true
+      end
+    end
+  end
+
+  local _groups = {}
+  for k, _ in pairs(groups) do
+    _groups[#_groups+1] = k
+  end
+
+  return _groups
+end
+
 ---@param name string
 ---@return table[]
 function M.get_group(name)
