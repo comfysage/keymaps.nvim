@@ -55,4 +55,25 @@ function M.get_group(name)
   return maps
 end
 
+---@param mapping Keymap
+function M.get_mapping(mapping)
+  mapping = mapping or {}
+
+  local modes = M.get_modes()
+  for _, mode in pairs(modes) do
+    local mappings = M.get_mode(mode)
+    for _, v in pairs(mappings) do
+      local match = 0
+      for k, _ in pairs(mapping) do
+        if v[k] and mapping[k] == v[k] then
+          match = match + 1
+        end
+      end
+      if match == #vim.tbl_keys(mapping) then
+        return v
+      end
+    end
+  end
+end
+
 return M
