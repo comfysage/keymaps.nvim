@@ -33,4 +33,13 @@ function M.setup(config)
   return _G.keymaps
 end
 
+function M.telescope()
+  local ok, telescope = pcall(require, 'telescope')
+  if not ok then
+    vim.notify('telescope module was not found; install telescope from https://github.com/nvim-telescope/telescope.nvim', vim.log.levels.WARN)
+    return
+  end
+  return require 'telescope'.extensions.keymaps_nvim.keymaps_nvim()
+end
+
 return M
