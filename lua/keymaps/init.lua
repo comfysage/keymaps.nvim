@@ -19,7 +19,7 @@ _G.keymaps_config = _G.keymaps_config or default_config
 local Keymaps = require 'keymaps.prototype'
 
 ---@type { normal: table, visual: table, insert: table }
-_G.keymaps = _G.keymaps or Keymaps.new {
+_G.keymaps = _G.keymaps or Keymaps:new {
   { 'normal', 'n' },
   { 'visual', 'v' },
   { 'insert', 'i' },
@@ -34,7 +34,7 @@ function M.setup(config)
 end
 
 function M.telescope()
-  local ok, telescope = pcall(require, 'telescope')
+  local ok, _ = pcall(require, 'telescope')
   if not ok then
     vim.notify('telescope module was not found; install telescope from https://github.com/nvim-telescope/telescope.nvim', vim.log.levels.WARN)
     return

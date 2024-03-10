@@ -151,13 +151,14 @@ function M.telescope(opts)
   local pickers = require 'telescope.pickers'
   local finders = require 'telescope.finders'
 
-  local modes = _G.keymaps.prototype.modes
+  ---@diagnostic disable-next-line: undefined-field
+  local modes = _G.keymaps.modes
 
   local results = {}
 
   local i = 0
   for _, mode in ipairs(vim.tbl_keys(modes)) do
-    for _, keybind in ipairs(vim.tbl_values(_G.keymaps.prototype[mode])) do
+    for _, keybind in ipairs(vim.tbl_values(require 'keymaps.data'.get_maps(mode))) do
       i = i + 1
       results[i] = { mode, keybind }
     end

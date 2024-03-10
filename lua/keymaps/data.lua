@@ -3,16 +3,24 @@ local M = {}
 ---@return string[]
 function M.get_modes()
   local modes = {}
-  for m, _ in pairs(keymaps.prototype.modes) do
+  ---@diagnostic disable-next-line: undefined-field
+  for m, _ in pairs(keymaps.modes) do
     modes[#modes+1] = m
   end
   return modes
 end
 
 ---@param mode string
----@return table[]
+---@return keymaps.types.keymaplist
 function M.get_mode(mode)
-  return keymaps.prototype[mode]
+  return keymaps[mode]
+end
+
+---@param mode string
+---@return table<string, keymaps.types.keymap>
+function M.get_maps(mode)
+  local list = M.get_mode(mode)
+  return list.list
 end
 
 ---@return string[]
@@ -21,7 +29,7 @@ function M.get_groups()
 
   local modes = M.get_modes()
   for _, mode in pairs(modes) do
-    local mappings = M.get_mode(mode)
+    local mappings = M.get_maps(mode)
     for _, v in pairs(mappings) do
       if v.group and #v.group > 0 then
         groups[v.group] = true
@@ -45,7 +53,7 @@ function M.get_group(name)
   local modes = M.get_modes()
   for _, mode in pairs(modes) do
     maps[mode] = {}
-    local mappings = M.get_mode(mode)
+    local mappings = M.get_maps(mode)
     for _, v in pairs(mappings) do
       if v.group == name then
         maps[mode][#maps[mode]+1] = v
@@ -61,7 +69,7 @@ function M.get_mapping(mapping)
 
   local modes = M.get_modes()
   for _, mode in pairs(modes) do
-    local mappings = M.get_mode(mode)
+    local mappings = M.get_maps(mode)
     for _, v in pairs(mappings) do
       local match = 0
       for k, _ in pairs(mapping) do
