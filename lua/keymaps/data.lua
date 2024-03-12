@@ -10,6 +10,16 @@ function M.get_modes()
   return modes
 end
 
+---@param mode string 'n'
+---@return keymaps.types.keymaplist
+function M.get_maps_by_mode(mode)
+  for name, v in pairs(keymaps.modes) do
+    if v == mode then
+      return keymaps[name]
+    end
+  end
+end
+
 ---@param mode string
 ---@return keymaps.types.keymaplist
 function M.get_mode(mode)
