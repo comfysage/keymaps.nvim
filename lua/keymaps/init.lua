@@ -1,6 +1,7 @@
 ---@class KeymapsConfig
 ---@field default_opts {}
 ---@field special_keys { [string]: string }
+---@field _augroup integer
 
 ---@type KeymapsConfig
 local default_config = {
@@ -30,6 +31,7 @@ local M = {}
 ---@param config KeymapsConfig|nil
 function M.setup(config)
   _G.keymaps_config = vim.tbl_deep_extend("force", _G.keymaps_config, config or {})
+  _G.keymaps_config._augroup = vim.api.nvim_create_augroup('keymaps:autocmds', {clear = true})
   return _G.keymaps
 end
 
