@@ -51,4 +51,12 @@ function Keymaplist:get(key)
   return self.list[key]
 end
 
+---@class keymaps.types.keymaplist
+---@field remove fun(self: keymaps.types.keymaplist, key: string): keymaps.types.keymap
+function Keymaplist:remove(key)
+  if self.list[key] then
+    self.list[key] = nil
+  end
+end
+
 return Keymaplist
