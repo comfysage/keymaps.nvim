@@ -42,7 +42,9 @@ function Keymap:new(mode, key, value)
     )
 
     if map.opts.overwrite then
-      Keymap.overwrite(map)
+      Keymap.delete(map)
+      ---@diagnostic disable-next-line: inject-field
+      self.opts.overwrite = nil
     end
 
     if map.opts.buffer then
@@ -80,17 +82,15 @@ function Keymap:new(mode, key, value)
 end
 
 ---@class keymaps.types.keymap
----@field overwrite fun(self: keymaps.types.keymap)
-function Keymap:overwrite()
-  local old_maps = vim.api.nvim_get_keymap 'n'
-  local old_map = vim.tbl_filter(function(t)
+---@field delete fun(self: keymaps.types.keymap)
+function Keymap:delete()
+  local matches = vim.api.nvim_get_keymap(self.mode)
+  matches = vim.tbl_filter(function(t)
     return t.lhs == self.lhs
-  end, old_maps)
-  if #old_map > 0 then
-    vim.keymap.del(self.mode, self.lhs)
+  end, matches)
+  if #matches > 0 then
+    vim.keymap.del(self.mode, self.lhs, { buffer = self.opts.buffer or nil })
   end
-  ---@diagnostic disable-next-line: inject-field
-  self.opts.overwrite = nil
 end
 
 ---@class keymaps.types.keymap
