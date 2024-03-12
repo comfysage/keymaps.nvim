@@ -9,6 +9,10 @@
 
 ---@alias keymaps.types.rhs string|function
 
+---@class vim.api.keyset.keymap
+---@field overwrite boolean
+---@field buffer integer
+
 ---@type keymaps.types.keymap
 local Keymap = {}
 
@@ -37,9 +41,21 @@ function Keymap:new(mode, key, value)
       value[3] or {}
     )
 
-    ---@diagnostic disable-next-line: undefined-field
     if map.opts.overwrite then
       Keymap.overwrite(map)
+    end
+
+    if map.opts.buffer then
+      vim.api.nvim_create_autocmd('BufDelete', {
+        group = _G.keymaps_config._augroup,
+        buffer = map.opts.buffer,
+        once = true,
+        desc = 'clean up keymaps prototype after buffer deletion',
+        callback = function()
+          local maps = require('keymaps.data').get_maps_by_mode(map.mode)
+          maps:remove(map.lhs)
+        end,
+      })
     end
   elseif type(value) == 'string' then
     map.rhs = value
