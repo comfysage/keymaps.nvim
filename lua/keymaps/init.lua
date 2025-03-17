@@ -21,9 +21,10 @@ local Keymaps = require 'keymaps.prototype'
 
 ---@type { normal: table, visual: table, insert: table }
 _G.keymaps = _G.keymaps or Keymaps:new {
-  { 'normal', 'n' },
-  { 'visual', 'v' },
-  { 'insert', 'i' },
+  { 'normal',   'n' },
+  { 'visual',   'v' },
+  { 'insert',   'i' },
+  { 'terminal', 't' },
 }
 
 local M = {}
