@@ -37,7 +37,7 @@ function Keymap:new(mode, key, value)
     map.group = value.group or nil
     map.opts = vim.tbl_deep_extend(
       'force',
-      _G.keymaps_config.default_opts,
+      vim.g.keymaps_config.default_opts,
       value[3] or {}
     )
 
@@ -49,7 +49,7 @@ function Keymap:new(mode, key, value)
 
     if map.opts.buffer then
       vim.api.nvim_create_autocmd('BufDelete', {
-        group = _G.keymaps_config._augroup,
+        group = vim.g.keymaps_config._augroup,
         buffer = map.opts.buffer,
         once = true,
         desc = 'clean up keymaps prototype after buffer deletion',

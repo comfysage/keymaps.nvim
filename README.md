@@ -3,8 +3,9 @@
 using `lazy.nvim`:
 ```lua
 return {
-    'crispybaccoon/keymaps.nvim',
-    priority = 2000, -- load before setting keymaps
+    'comfysage/keymaps.nvim',
+    lazy = false,
+    priority = 1000,
     opts = {
       -- default options given to `vim.keymap.set()`
       default_opts = {
@@ -20,7 +21,7 @@ return {
 first run:
 
 ```lua
-require 'keymaps'.setup {}
+require('keymaps').setup()
 ```
 
 at the beggining of your config.
@@ -29,10 +30,10 @@ or using a protected call:
 
 ```lua
 local ok, keymaps = pcall(require, 'keymaps')
-if ok then keymaps.setup {} end
+if ok then keymaps.setup() end
 ```
 
-then your can use the 'keymaps' global like this:
+then you can use the 'keymaps' global like this:
 
 ```lua
 -- keymaps <mode> [<key>]        { <keymap>         <description>  }
@@ -62,10 +63,10 @@ keymaps.normal[',hs'] = { require 'gitsigns'.stage_hunk, '[Git] stage current hu
 
 Add the following to your nvim config to load the telescope extension
 ```lua
-require 'telescope'.load_extension 'keymaps_nvim'
+require('telescope').load_extension('keymaps_nvim')
 ```
 
 to view your keymaps using telescope run the following
 ```lua
-require 'telescope'.extensions.keymaps_nvim.keymaps_nvim()
+require('telescope').extensions.keymaps_nvim.keymaps_nvim()
 ```
